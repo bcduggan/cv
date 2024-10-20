@@ -1,0 +1,13 @@
+name: Make CV
+run-name: ${{ github.actor }} updated their CV
+on: [push]
+jobs:
+  make:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .
+      - name: I made it, didn't I?
+        run: make
+
