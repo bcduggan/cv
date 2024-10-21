@@ -1,0 +1,13 @@
+name: cv
+
+services:
+  typst:
+    image: ghcr.io/typst/typst:v0.12.0
+    working_dir: "/work"
+    volumes:
+      - "${PWD}:/work"
+  git-cliff:
+    image: ghcr.io/orhun/git-cliff/git-cliff:main
+    working_dir: "/work"
+    volumes:
+      - "${PWD}:/work"
