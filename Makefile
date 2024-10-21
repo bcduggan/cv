@@ -1,6 +1,6 @@
-all: cv
+all: cv.pdf
 
-cv: cv.typ
+cv.pdf: cv.typ
 	docker run \
 		--rm \
 		--user "$(shell id --user):$(shell id --group)" \
@@ -9,3 +9,4 @@ cv: cv.typ
 		ghcr.io/typst/typst:v0.12.0 \
 		compile $?
 
+CHANGELOG :
