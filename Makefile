@@ -3,8 +3,9 @@ all: cv
 cv: cv.typ
 	docker run \
 		--rm \
-		--workdir "/typst" \
-		--volume "$(PWD):/typst" \
+		--user "$(shell id --user):$(shell id --group)" \
+		--workdir "/tmp/typst" \
+		--volume "$(PWD):/tmp/typst" \
 		ghcr.io/typst/typst:v0.12.0 \
 		compile $?
 
