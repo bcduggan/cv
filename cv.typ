@@ -1,1 +1,1 @@
-#metadata("0.1.0-rc") <version>
+#metadata("1.0.0") <version>
