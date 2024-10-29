@@ -5,6 +5,7 @@ variable "GROUP_NAME" {}
 
 variable "GIT_CLIFF_VERSION" { default = "2.6.1" }
 variable "TYPST_VERSION" { default = "0.12.0" }
+variable "HAYAGRIVA_VERSION" { default = "0.8.0" }
 
 target "git-cliff" {
   context = "context"
@@ -37,5 +38,20 @@ target "typst" {
   ]
   labels = {
     "net.dugga.cv.tool" = "typst"
+  }
+}
+
+target "hayagriva" {
+  inherits = ["git-cliff"]
+  target = "hayagriva"
+  args = {
+    "VERSION" = "${HAYAGRIVA_VERSION}"
+  }
+  tags = [
+    "bcduggan/cv/hayagriva:latest",
+    "bcduggan/cv/hayagriva:${GIT_CLIFF_VERSION}"
+  ]
+  labels = {
+    "net.dugga.cv.tool" = "hayagriva"
   }
 }

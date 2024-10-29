@@ -15,3 +15,8 @@ FROM base AS typst
 ARG VERSION
 RUN cargo install "typst-cli@${VERSION}"
 ENTRYPOINT ["/usr/local/cargo/bin/typst"]
+
+FROM base AS hayagriva
+ARG VERSION
+RUN cargo install "hayagriva@${VERSION}" --features=cli
+ENTRYPOINT ["/usr/local/cargo/bin/hayagriva"]
