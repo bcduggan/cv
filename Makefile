@@ -19,3 +19,7 @@ dist:
 
 dist/%.pdf: src/%/main.typ | dist
 	$(TYPST) compile $< $@
+
+.PHONY: clean
+clean:
+	[ -d dist ] && rm dist/*.pdf
