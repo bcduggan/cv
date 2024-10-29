@@ -1,14 +1,21 @@
-docker-run := docker run --rm --workdir "/work" --volume "${PWD}:/work"
-git-cliff := ${docker-run} ghcr.io/orhun/git-cliff/git-cliff:main
-typst := ${docker-run} ghcr.io/typst/typst:v0.12.0
+docker-run = $(MAKE) -C docker "bin/$(1)" && "./docker/bin/$(1)"
 
-version := $(shell bash -c '${typst} query cv.typ "<version>" --field "value" --one')
+GIT-CLIFF = $(call docker-run,git-cliff)
+TYPST = $(call docker-run,typst)
+HAYAGRIVA = $(call docker-run,hayagriva)
+
+version = $(shell $(TYPST) query src/cv/main.typ "<version>" --field "value" --one)
+
+all: dist/cv.pdf
 
 cliff.toml:
-	${git-cliff} --init keepachangelog
-
-cv.pdf: cv.typ
-	${typst} compile $^
+	$(GIT-CLIFF) --init keepachangelog
 
 CHANGELOG.md: cliff.toml
-	${git-cliff} --tag "v${version}" --output $@
+	$(GIT-CLIFF) --tag "v${version}" --output $@
+
+dist:
+	mkdir dist
+
+dist/%.pdf: src/%/main.typ | dist
+	$(TYPST) compile $< $@

@@ -1,0 +1,17 @@
+#!/usr/bin/bash
+
+LC_ALL=C
+set -eufo pipefail
+
+TARGET="${0##*/}"
+
+case ${TARGET} in
+  *)
+    declare -a OPTS=("--rm")
+    OPTS+=("--user=$(id --user):$(id --group)")
+    OPTS+=("--workdir=/tmp/work")
+    OPTS+=("--volume=${PWD}:/tmp/work")
+
+    docker run ${OPTS[@]} "bcduggan/cv/${TARGET}:latest" ${@}
+  ;;
+esac
